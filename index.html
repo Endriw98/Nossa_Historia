@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum de Amor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Quicksand:wght@300;400;500&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-quicksand {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(244, 114, 182, 0.7);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            14% {
+                transform: scale(1.3);
+            }
+
+            28% {
+                transform: scale(1);
+            }
+
+            42% {
+                transform: scale(1.3);
+            }
+
+            70% {
+                transform: scale(1);
+            }
+        }
+
+        .floating-heart {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .photo-frame {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .message-animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .slide-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .floating-hearts-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .mini-heart {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        #slide-0 {
+            background-image: url("img/01.jpeg");
+            background-size: cover;
+        }
+
+        #slide-1 {
+            background-image: url("img/02.jpeg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        #slide-2 {
+            background-image: url("img/03.jpeg");
+            background-size: cover;;
+        }
+
+        #slide-3 {
+            background-image: url("img/04.jpeg");
+            background-size: cover;
+        }
+
+        #slide-4 {
+            background-image: url("img/05.jpeg");
+            background-size: cover;
+        }
+    </style>
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full font-quicksand">
+    
+    <audio id="background-music" src="music/1.mp3" loop></audio>
+    <script>
+        document.addEventListener("click", function () {
+            const music = document.getElementById("background-music");
+            music.play();
+            music.volume = 0.5;
+            
+        });
+        
+    </script>
+
+    <div id="app-wrapper" class="h-full w-full overflow-auto"
+        style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);">
+        <!-- Floating Hearts Background -->
+        <div class="floating-hearts-bg">
+            <svg class="mini-heart" style="left: 5%; top: 10%; width: 30px; animation-delay: 0s;" viewbox="0 0 24 24"
+                fill="#f472b">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="mini-heart" style="left: 85%; top: 15%; width: 25px; animation-delay: 1s;" viewbox="0 0 24 24"
+                fill="#f472b6">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="mini-heart" style="left: 15%; top: 60%; width: 20px; animation-delay: 2s;" viewbox="0 0 24 24"
+                fill="#f472b6">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="mini-heart" style="left: 90%; top: 70%; width: 35px; animation-delay: 0.5s;" viewbox="0 0 24 24"
+                fill="#f472b6">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="mini-heart" style="left: 50%; top: 85%; width: 28px; animation-delay: 1.5s;" viewbox="0 0 24 24"
+                fill="#f472b6">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+        </div>
+        <div class="relative z-10 min-h-full flex flex-col items-center px-4 py-8"><!-- Header -->
+            <div class="text-center mb-6">
+                <div class="floating-heart inline-block mb-2">
+
+                </div>
+                <h1 id="main-title" class="font-playfair text-3xl md:text-4xl font-semibold text-pink-300 mb-2">Nossa
+                    História de Amor</h1>
+                <p id="couple-names" class="font-playfair text-xl italic text-pink-200/80">Endriw Luka &amp Raquel
+                    Chaves</p>
+            </div><!-- Photo Frame -->
+            <div class="relative w-full max-w-sm mx-auto mb-6">
+                <div
+                    class="photo-frame rounded-3xl overflow-hidden bg-gradient-to-br from-pink-400/20 to-purple-500/20 p-2">
+                    <div id="photo-container"
+                        class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-pink-900/50 to-purple-900/50 flex items-center justify-center">
+                        <!-- Placeholder SVG illustrations for couple -->
+                        <div id="slide-0"
+                            class="slide-content absolute inset-0 flex items-center justify-center slide-transition">
+
+                        </div>
+                        <div id="slide-1"
+                            class="slide-content absolute inset-0 flex items-center justify-center slide-transition opacity-0">
+
+
+                        </div>
+                        <div id="slide-2"
+                            class="slide-content absolute inset-0 flex items-center justify-center slide-transition opacity-0">
+
+
+                        </div>
+                        <div id="slide-3"
+                            class="slide-content absolute inset-0 flex items-center justify-center slide-transition opacity-0">
+
+                        </div>
+                        <div id="slide-4"
+                            class="slide-content absolute inset-0 flex items-center justify-center slide-transition opacity-0">
+
+                        </div>
+                    </div>
+                </div><!-- Slide Indicator -->
+                <div id="slide-indicators" class="flex justify-center gap-2 mt-4"><button
+                        class="indicator w-3 h-3 rounded-full bg-pink-400 transition-all duration-300"
+                        data-slide="0"></button> <button
+                        class="indicator w-3 h-3 rounded-full bg-pink-400/30 transition-all duration-300"
+                        data-slide="1"></button> <button
+                        class="indicator w-3 h-3 rounded-full bg-pink-400/30 transition-all duration-300"
+                        data-slide="2"></button> <button
+                        class="indicator w-3 h-3 rounded-full bg-pink-400/30 transition-all duration-300"
+                        data-slide="3"></button> <button
+                        class="indicator w-3 h-3 rounded-full bg-pink-400/30 transition-all duration-300"
+                        data-slide="4"></button>
+                </div>
+            </div><!-- Romantic Message -->
+            <div class="w-full max-w-sm mx-auto mb-6 px-4">
+                <div
+                    class="bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-sm rounded-2xl p-5 border border-pink-400/20">
+                    <p id="romantic-message"
+                        class="font-playfair text-lg md:text-xl text-center text-pink-100 italic leading-relaxed message-animate">
+                        "Você é a razão do meu sorriso, a luz dos meus dias e o amor da minha vida."</p>
+                </div>
+            </div><!-- Navigation Buttons -->
+            <div class="flex items-center gap-6 mb-8"><button id="prev-btn"
+                    class="w-14 h-14 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center shadow-lg hover:shadow-pink-500/50 transition-all duration-300 hover:scale-110 active:scale-95">
+                    <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg></button>
+                <div class="floating-heart">
+                    <svg width="40" height="40" viewbox="0 0 24 24" fill="#f472b6" class="heartbeat">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </div><button id="next-btn"
+                    class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110 active:scale-95">
+                    <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></button>
+            </div><!-- Footer -->
+            <div class="text-center text-pink-300/60 text-sm">
+                <p>Feito com 💕 para vocês</p>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        const music = document.getElementById("background-music");
+        music.volume = 0.2; // Ajusta o volume para 20%
+        music.play();
+        const defaultConfig = {
+            couple_names: "Endriw Luka & Raquel Chaves",
+            main_title: "Nossa História de Amor",
+            message_1: "Você é a razão do meu sorriso, a luz dos meus dias e o amor da minha vida.",
+            message_2: "Cada momento ao seu lado é um presente que guardo no coração.",
+            message_3: "Você transformou minha vida em um conto de fadas que quero viver para sempre.",
+            message_4: "Nosso amor é como as estrelas: eterno, brilhante e infinito.",
+            message_5: "Com você, descobri o verdadeiro significado da palavra felicidade.",
+            background_color: "#1a1a2e",
+            primary_color: "#f472b6",
+            secondary_color: "#a855f7",
+            text_color: "#fce7f3",
+            accent_color: "#fbbf24",
+            font_family: "Playfair Display",
+            font_size: 18
+        };
+
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        const messages = [];
+
+        function updateMessages(config) {
+            messages.length = 0;
+            messages.push(
+                config.message_1 || defaultConfig.message_1,
+                config.message_2 || defaultConfig.message_2,
+                config.message_3 || defaultConfig.message_3,
+                config.message_4 || defaultConfig.message_4,
+                config.message_5 || defaultConfig.message_5
+            );
+        }
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.slide-content');
+            const indicators = document.querySelectorAll('.indicator');
+            const messageEl = document.getElementById('romantic-message');
+
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.style.opacity = '1';
+                    slide.style.transform = 'scale(1)';
+                } else {
+                    slide.style.opacity = '0';
+                    slide.style.transform = 'scale(0.9)';
+                }
+            });
+
+            indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.remove('bg-pink-400/30');
+                    indicator.classList.add('bg-pink-400');
+                    indicator.style.transform = 'scale(1.3)';
+                } else {
+                    indicator.classList.remove('bg-pink-400');
+                    indicator.classList.add('bg-pink-400/30');
+                    indicator.style.transform = 'scale(1)';
+                }
+            });
+
+            messageEl.classList.remove('message-animate');
+            void messageEl.offsetWidth;
+            messageEl.classList.add('message-animate');
+            messageEl.textContent = `"${messages[index]}"`;
+
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(prev);
+        }
+
+        document.getElementById('next-btn').addEventListener('click', nextSlide);
+        document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+        document.querySelectorAll('.indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', () => goToSlide(index));
+        });
+
+        // Swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const photoContainer = document.getElementById('photo-container');
+
+        photoContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        photoContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        async function onConfigChange(config) {
+            const coupleNamesEl = document.getElementById('couple-names');
+            const mainTitleEl = document.getElementById('main-title');
+            const messageEl = document.getElementById('romantic-message');
+
+            coupleNamesEl.textContent = config.couple_names || defaultConfig.couple_names;
+            mainTitleEl.textContent = config.main_title || defaultConfig.main_title;
+
+            updateMessages(config);
+            messageEl.textContent = `"${messages[currentSlide]}"`;
+
+            const fontFamily = config.font_family || defaultConfig.font_family;
+            const baseFontStack = 'serif';
+            mainTitleEl.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+            coupleNamesEl.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+            messageEl.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+
+            const baseSize = config.font_size || defaultConfig.font_size;
+            mainTitleEl.style.fontSize = `${baseSize * 1.8}px`;
+            coupleNamesEl.style.fontSize = `${baseSize * 1.1}px`;
+            messageEl.style.fontSize = `${baseSize}px`;
+
+            const bgColor = config.background_color || defaultConfig.background_color;
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+
+            document.getElementById('app-wrapper').style.background = `linear-gradient(135deg, ${bgColor} 0%, ${adjustColor(bgColor, 20)} 50%, ${bgColor} 100%)`;
+            mainTitleEl.style.color = primaryColor;
+            coupleNamesEl.style.color = hexToRgba(primaryColor, 0.8);
+            messageEl.style.color = textColor;
+        }
+
+        function adjustColor(hex, amount) {
+            const num = parseInt(hex.replace('#', ''), 16);
+            const r = Math.min(255, Math.max(0, (num >> 16) + amount));
+            const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amount));
+            const b = Math.min(255, Math.max(0, (num & 0x0000FF) + amount));
+            return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
+        }
+
+        function hexToRgba(hex, alpha) {
+            const num = parseInt(hex.replace('#', ''), 16);
+            const r = (num >> 16) & 255;
+            const g = (num >> 8) & 255;
+            const b = num & 255;
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+                    },
+                    {
+                        get: () => config.primary_color || defaultConfig.primary_color,
+                        set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+                }
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["couple_names", config.couple_names || defaultConfig.couple_names],
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["message_1", config.message_1 || defaultConfig.message_1],
+                ["message_2", config.message_2 || defaultConfig.message_2],
+                ["message_3", config.message_3 || defaultConfig.message_3],
+                ["message_4", config.message_4 || defaultConfig.message_4],
+                ["message_5", config.message_5 || defaultConfig.message_5]
+            ]);
+        }
+
+        updateMessages(defaultConfig);
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9bf9fa6da2e5627a',t:'MTc2ODY5NjE2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
